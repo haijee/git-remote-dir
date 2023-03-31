@@ -6,17 +6,14 @@ const shell = require("shelljs");
 const inquirer = require("inquirer");
 const program = new Command();
 const pkginfo = require("../package.json");
-const gitDir = require("./main");
+const remoteDir = require("./main");
+
 program.version(pkginfo.version, "-v, --version", "当前版本");
 
 program
-  .command("remote <repo>")
+  .command("dir <repo>")
   .description("拉取仓库文件")
-  .action((name: any, repo: any, branch: any = "main") => {
-    // <name>
-    if (!repo) {
-      console.log("请输入完成拉取文件名和仓库地址");
-    }
+  .action((repo: any) => {
     inquirer
       .prompt([
         {
@@ -27,19 +24,21 @@ program
         },
         {
           type: "input",
-          name: "name",
-          message: "选择要拉取的目录",
-          default: "main",
+          name: "targetDir",
+          message: "选择要拉取的目录（仓库子目录）",
+          default: "",
+        },
+        {
+          type: "input",
+          name: "outputDir",
+          message: "选择要导出的目录（默认拉取的目录）",
+          default: "",
         },
       ])
-      .then((answers) => {
-        const { framework } = answers;
-        console.log("结果", answers);
+      .then((answers: any) => {
+        const { branch, targetDir, outputDir } = answers;
+        remoteDir(repo, { branch, targetDir, outputDir });
       });
-    // if (name && repo) {
-    //   gitDir(name, repo, branch);
-    // } else {
-    // }
   });
 
 program.parse(process.argv);

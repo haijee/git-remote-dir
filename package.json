@@ -1,6 +1,6 @@
 {
   "name": "git-remote-dir",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "拉取git仓库子目录",
   "main": "dist/main.js",
   "bin": {
@@ -13,7 +13,8 @@
   },
   "typings": "types/index.d.ts",
   "keywords": [
-    "脚手架"
+    "开发工具",
+    "拉取仓库子目录"
   ],
   "files": [
     "dist",
