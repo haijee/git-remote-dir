@@ -1,1 +1,1 @@
-# git-dir
+# git-remote-dir
